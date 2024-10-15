@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 EMAIL_IMAP = os.environ['EMAIL_IMAP']
 EMAIL_LOGIN = os.environ['EMAIL_LOGIN']
 EMAIL_PASSWORD = os.environ['EMAIL_PASSWORD']
-EMAIL_POLLING_INTERVAL = os.environ['EMAIL_POLLING_INTERVAL']
+EMAIL_POLLING_INTERVAL = int(os.environ['EMAIL_POLLING_INTERVAL'])
 NETFLIX_EMAIL_SENDER = os.environ['NETFLIX_EMAIL_SENDER']
 
 
@@ -32,6 +32,9 @@ def extract_links(text):
 
 def open_link_with_selenium(body):
     """Opens Selenium and clicks a button to confirm connection"""
+    message = "Link found, triggering access..."
+    logger.info(message)
+
     links = extract_links(body)
     for link in links:
         if "update-primary-location" in link:
